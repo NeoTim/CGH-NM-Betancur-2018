@@ -2,6 +2,7 @@
 \usepackage[no-math]{fontspec}
 \usepackage{xeCJK}
 \setCJKmainfont{Source Han Sans TW}
+\hypersetup{colorlinks,linkcolor=}
 
 \usetheme{CambridgeUS}
 \title[Deep learning (Betancur \textit{et al}, 2018)]{Deep learning for prediction of obstructive disease from fast myocardial perfusion SPECT: a multicenter study}
@@ -15,16 +16,153 @@
 \begin{document}
 \maketitle
 
+\section{Summary}
+\subsection{Abstract}
+\begin{frame}{Abstract}
+    \begin{description}
+        \item[Objectives] 
+            The study evaluated the automatic prediction of obstructive disease
+            from myocardial perfusion imaging (MPI) by deep learning (DL) as
+            compared with total perfusion deficit (TPD).
+        \item[Background]
+            Deep convolutional neural networks (CNN) trained with a large
+            multicenter population may provide improved prediction of
+            per-patient and per-vessel coronary artery disease (CAD) from
+            single-photon emission computed tomography (SPECT) MPI.
+    \end{description}
+\end{frame}
+
+\section{Methods}
+\subsection{Study population}
+\begin{frame}{Study population}
+    \begin{itemize}
+        \item Totally 1638 patients (67\% men) referred for SPECT MPI
+            \begin{itemize}
+                \item From 2008 to 2015
+                \item At 9 national and international sites (Canada, Switzerland, Israel)
+            \end{itemize}
+        \item Without prior
+            \begin{itemize}
+                \item Myocardial infarction (MI)
+                \item Percutaneous coronary intervention (PCI)
+                \item Coronary artery bypass graft surgery (CABG)
+            \end{itemize}
+        \item Underwent a clinically indicated invasive coronary angiography
+            (ICA) within 180 days of MPI.
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Demography}
     \begin{center}
         \solo{0.eps}
     \end{center}
 \end{frame}
 
+\subsection{Image acquisition}
+\begin{frame}{Image acquisition}
+    Stress MPI with high-efficiency solid-state SPECT scanners
+    \begin{itemize}
+        \item $^{99\textup{m}}$Tc-sestamibi: 1469 patients (90\%)
+        \item $^{99\textup{m}}$Tc-tetrofosmin: 169 patients (10\%)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Stress and rest images}
+    Among the study patients
+    \begin{itemize}
+        \item 1526 (93\%) underwent same-day stress and rest image acquisition
+        \item 65 (4\%) had stress and rest images acquired in different days
+        \item 47 (3\%) had only stress images.
+    \end{itemize}
+
+    The mean weight-adjusted stress dose was $673 \pm 458$ MBq ($18.2 \pm 12.4$ mCi).
+\end{frame}
+
+\begin{frame}{Type of stress}
+    \begin{itemize}
+        \item Treadmill exercise testing: 639 (39\%)
+        \item Pharmacologic stress: 999 (61\%)
+    \end{itemize}
+
+    Upright and supine stress imaging began 15 to 60 min after stress, and
+    lasted 4 to 6 min.
+\end{frame}
+
+\subsection{Invasive coronary angiography}
+\begin{frame}{Invasive coronary angiography}
+    \begin{itemize}
+        \item ICA was performed within 6 months of the MPI examination.
+        \item All angiograms were interpreted by an on-site cardiologist.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Gold standard for obstructive CAD}
+    Luminal diameter narrowing in any of
+    \begin{itemize}
+        \item $\ge 50\%$ of the left main artery
+        \item $\ge 70\%$ in any of
+            \begin{itemize}
+                \item Left anterior descending artery (LAD)
+                \item Left circumflex artery (LCx)
+                \item Right coronary atery (RCA)
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\subsection{Image processing and QPS}
+\begin{frame}{Image processing}
+    Left ventricular (LV) myocardial contours were computed using standard QPS
+    (Quantitative Perfusion SPECT) software and verified by a nuclear medicine
+    technologist blinded to any clinical findings.
+\end{frame}
+
+\begin{frame}{Automated SPECT MPI quantification}
+    \begin{description}
+        \item[Blackout polar map]
+            Blacking out raw polar map samples below the abnormality threshold
+            of 2.5 standard deviations.
+        \item[TPD polar map]
+            The ratio of the summed normalized severities divided by the total
+            theoretic maximum TPD.
+    \end{description}
+\end{frame}
+
+\subsection{Deep learning model}
 \begin{frame}{DL prediction of obstructive CAD from MPI}
     \begin{center}
         \solo{1.eps}
     \end{center}
+\end{frame}
+
+\begin{frame}{How machine learning works}
+    \href{https://brohrer.github.io/}{Brandon Rohrer} made clear explanations
+    with no fancy math and no computer jargon.
+    \begin{itemize}
+        \item \href{https://brohrer.github.io/deep_learning_demystified.html}{Deep learning demystified}
+        \item \href{https://brohrer.github.io/how_convolutional_neural_networks_work.html}{How convolutional neural networks work}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Prediction of per-vessel/per-patient disease}
+    \begin{itemize}
+        \item
+            DL computes a probability of obstructive CAD in each vessel without
+            predefined subdivision of the polar map.
+        \item
+            The average error between the predicted per-vessel probabilities
+            and the disease location as defined by invasive angiography.
+        \item
+            Multivessel disease prediction is based on the patterns for each
+            vessel.
+    \end{itemize}
+\end{frame}
+
+\section{Results}
+\begin{frame}{Abbreviations}
+    \begin{description}
+        \item[AUC] area under curve
+        \item[CI] confidence interval
+    \end{description}
 \end{frame}
 
 \begin{frame}{DL prediction of obstructive disease}
@@ -33,13 +171,13 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{Prediction of obstructive CAD per territory}
+\begin{frame}{Per-vessel analysis}
     \begin{center}
         \solo{3.eps}
     \end{center}
 \end{frame}
 
-\begin{frame}{Discrepancies from stress MPI by DL and TPD}
+\begin{frame}{Case example}
     \begin{center}
         \solo{4.eps}
     \end{center}
